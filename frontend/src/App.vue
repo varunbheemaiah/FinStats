@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import HelloWorld from './components/HelloWorld.vue'
-import NasdaqEarningsCalendar from './components/NasdaqEarningsCalendar.vue';
 import SideBar from './components/SideBar.vue'
 </script>
 

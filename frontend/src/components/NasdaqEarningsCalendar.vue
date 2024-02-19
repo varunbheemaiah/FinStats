@@ -1,5 +1,10 @@
 <template>
   <main>
+
+    <!-- AppBar -->
+    <AppBar pageTitle="NASDAQ Earnings Calendar" />
+
+    <!-- Input type -->
     <v-container>
       <v-radio-group inline label="Please pick your input" v-model="data.inputType">
         <v-radio label="Date Range" value="range"></v-radio>
@@ -53,6 +58,7 @@
 <script lang="ts" setup>
 import { defineComponent, reactive } from 'vue'
 import { GetNASDAQEarningsCalendar } from '../../wailsjs/go/main/App'
+import AppBar from "./AppBar.vue"
 
 const data = reactive({
   inputType: 'range',
