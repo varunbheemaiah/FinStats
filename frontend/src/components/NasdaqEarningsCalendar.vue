@@ -36,22 +36,22 @@
       </v-row>
     </v-container>
 
-    <!-- TODO: Add place to display error messages -->
-    <v-container>
-      <v-alert>{{ data.errorMessage }}</v-alert>
-    </v-container>
-
     <!-- Submit button -->
     <v-container>
       <v-btn variant="tonal" @click="submit" :loading="data.isSubmitButtonLoading">
         Submit
       </v-btn>
     </v-container>
+
+    <!-- Error Message -->
+    <v-container v-if="data.errorMessage">
+      <v-alert>{{ data.errorMessage }}</v-alert>
+    </v-container>
   </main>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { GetNASDAQEarningsCalendar } from '../../wailsjs/go/main/App'
 
 const data = reactive({

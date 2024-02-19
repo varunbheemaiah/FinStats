@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {reactive} from 'vue'
+import {defineComponent, reactive} from 'vue'
 import {Greet} from '../../wailsjs/go/main/App'
 
 const data = reactive({

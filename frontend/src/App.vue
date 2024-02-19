@@ -8,7 +8,7 @@ import SideBar from './components/SideBar.vue'
   <v-app>
     <SideBar />
     <v-main>
-      <NasdaqEarningsCalendar />
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
