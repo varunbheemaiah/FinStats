@@ -24,14 +24,15 @@
     <!-- If multiple dates -->
     <v-container v-if="data.inputType === 'dates'">
       <v-row>
-        <v-col cols="6">
+        <v-col cols="3">
           <v-date-picker v-model="data.selectedDate" multiple range no-title
             @update:model-value="updateSelectedDates"></v-date-picker>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="9">
+          <h3 class="date-list-title">Selected Dates</h3>
           <v-row>
             <v-col cols="12">
-              <v-chip v-for="(date, index) in data.selectedDates" :key="index" @click="removeDate(index)">
+              <v-chip v-for="(date, index) in data.selectedDates" :key="index" class="date-chip" @click="removeDate(index)">
                 {{ formatDate(date) }}
                 <v-icon small>mdi-close</v-icon>
               </v-chip>
@@ -168,11 +169,18 @@ main {
 
 .date-chip {
   margin-right: 8px;
+  margin-bottom: 8px; /* Adjust as needed */
   /* Adjust spacing between chips if needed */
 }
 
 .date-chip v-icon {
   cursor: pointer;
   /* Add cursor pointer to the close icon */
+}
+
+.date-list-title {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1.2em; /* Adjust title font size */
 }
 </style>
