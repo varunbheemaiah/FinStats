@@ -11,3 +11,9 @@ const props = defineProps({
 })
 const { pageTitle } = toRefs(props)
 </script>
+
+<style>
+.v-app-bar {
+    height: 67.5px;
+}
+</style>

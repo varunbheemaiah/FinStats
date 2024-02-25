@@ -1,9 +1,6 @@
 <template>
   <main>
 
-    <!-- AppBar -->
-    <AppBar pageTitle="NASDAQ Earnings Calendar" />
-
     <!-- Input type -->
     <v-container>
       <v-radio-group inline label="Please pick your input" v-model="data.inputType">

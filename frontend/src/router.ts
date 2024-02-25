@@ -13,6 +13,11 @@ const routes: RouteRecordRaw[] = [
     path: '/nasdaq-earnings',
     name: 'NASDAQ Earnings Calendar',
     component: NasdaqEarningsCalendar
+  },
+  {
+    path: '/greeting',
+    name: 'Hello',
+    component: Greeting
   }
 ];
 
@@ -22,8 +27,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // Assuming each route has a meta field with pageTitle
   const pageTitle = to.name || 'Page';
+  document.title = String(pageTitle);
   next();
 });
 

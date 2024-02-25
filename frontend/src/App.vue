@@ -1,12 +1,23 @@
 <script lang="ts" setup>
 import SideBar from './components/SideBar.vue'
+import AppBar from './components/AppBar.vue'
+import { ref } from 'vue';
+import router from './router';
+
+const pageTitle = ref(document.title);
+
+router.beforeEach((to, from, next) => {
+  pageTitle.value = String(to.name) || 'Page';
+  next();
+});
 </script>
 
 <template>
   <v-app>
     <SideBar />
     <v-main>
-      <router-view></router-view>
+      <AppBar :pageTitle="pageTitle" />
+      <router-view/>
     </v-main>
   </v-app>
 </template>
