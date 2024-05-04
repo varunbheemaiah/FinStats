@@ -29,7 +29,8 @@
           <h3 class="date-list-title">Selected Dates</h3>
           <v-row>
             <v-col cols="12">
-              <v-chip v-for="(date, index) in data.selectedDates" :key="index" class="date-chip" @click="removeDate(index)">
+              <v-chip v-for="(date, index) in data.selectedDates" :key="index" class="date-chip"
+                @click="removeDate(index)">
                 {{ formatDate(date) }}
                 <v-icon small>mdi-close</v-icon>
               </v-chip>
@@ -54,9 +55,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, reactive } from 'vue'
-import { GetNASDAQEarningsCalendar } from '../../wailsjs/go/main/App'
-import AppBar from "./AppBar.vue"
+import { reactive } from 'vue'
+import { GetNASDAQEarningsCalendar, SaveFile, WriteFile, ShowError } from '../../wailsjs/go/main/App'
+import { LogInfo } from '../../wailsjs/runtime'
 
 const data = reactive({
   inputType: 'range',
@@ -68,7 +69,11 @@ const data = reactive({
   errorMessage: ""
 })
 
-function submit() {
+async function err(body: string, title: string = "") {
+  return ShowError(title, body);
+}
+
+async function submit() {
   data.isSubmitButtonLoading = true
   let dates = [] as string[]
   if (data.inputType === 'range') {
@@ -76,14 +81,21 @@ function submit() {
   } else if (data.inputType === 'dates') {
     dates = convertToYYYYMMDD(data.selectedDates)
   }
-  GetNASDAQEarningsCalendar(dates).then(
-    response => {
-      data.isSubmitButtonLoading = false
-    }
-  ).catch(error => {
-    data.errorMessage = error
+
+  let b64str = await GetNASDAQEarningsCalendar(dates)
+  if (!b64str) {
     data.isSubmitButtonLoading = false
-  })
+    return await err("Error Generating File")
+  }
+  const path = await SaveFile();
+  if(!path) {
+    data.isSubmitButtonLoading = false
+    return
+  };
+  await WriteFile(b64str, path);
+
+  data.isSubmitButtonLoading = false
+  
 }
 
 function handleExcelResponse(numArray: number[], fileName: string) {
@@ -166,7 +178,8 @@ main {
 
 .date-chip {
   margin-right: 8px;
-  margin-bottom: 8px; /* Adjust as needed */
+  margin-bottom: 8px;
+  /* Adjust as needed */
   /* Adjust spacing between chips if needed */
 }
 
@@ -178,6 +191,7 @@ main {
 .date-list-title {
   margin-bottom: 8px;
   font-weight: bold;
-  font-size: 1.2em; /* Adjust title font size */
+  font-size: 1.2em;
+  /* Adjust title font size */
 }
 </style>

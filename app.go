@@ -4,10 +4,12 @@ import (
 	"compress/gzip"
 	"context"
 	"embed"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -15,6 +17,7 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"github.com/xuri/excelize/v2"
 )
 
@@ -37,12 +40,47 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
+func (a *App) SaveFile() string {
+	selection, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		Title:           "Select File",
+		DefaultFilename: "Earnings Calendar.xlsx",
+		Filters: []runtime.FileFilter{
+			{DisplayName: "Excel '97-2004 Workbooks (*.xls)", Pattern: "*.xls"},
+			{DisplayName: "Excel Workbooks (*.xlsx)", Pattern: "*.xlsx"},
+			{DisplayName: "Excel Binary Workbooks (*.xlsb)", Pattern: "*.xlsb"},
+			{DisplayName: "Numbers Spreadsheets (*.numbers)", Pattern: "*.numbers"},
+		},
+	})
+	if err != nil {
+		_, _ = runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
+			Type:    runtime.ErrorDialog,
+			Title:   "Selection Error",
+			Message: err.Error(),
+		})
+		return ""
+	}
+	return selection
+}
+
+func (a *App) WriteFile(b64 string, path string) {
+	buf, _ := base64.StdEncoding.DecodeString(b64)
+	_ = os.WriteFile(path, buf, 0644)
+}
+
+func (a *App) ShowError(title string, message string) {
+	_, _ = runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
+		Type:    runtime.ErrorDialog,
+		Title:   title,
+		Message: message,
+	})
+}
+
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
 
-func (a *App) GetNASDAQEarningsCalendar(dates []string) ([]byte, error) {
+func (a *App) GetNASDAQEarningsCalendar(dates []string) (string, error) {
 
 	url := "https://api.nasdaq.com/api/calendar/earnings"
 
@@ -190,7 +228,7 @@ func (a *App) GetNASDAQEarningsCalendar(dates []string) ([]byte, error) {
 			},
 		})
 		if err != nil {
-			return nil, err
+			return "", err
 		}
 
 		f.SetCellStyle(date, "A1", "I2", titleStyle)
@@ -339,15 +377,17 @@ func (a *App) GetNASDAQEarningsCalendar(dates []string) ([]byte, error) {
 	f.SetActiveSheet(0)
 	if err := f.SaveAs("earnings.xlsx"); err != nil {
 		fmt.Println("Unable to save file:", err)
-		return nil, err
+		return "", err
 	}
 
 	buf, err := f.WriteToBuffer()
 	if err != nil {
 		fmt.Println(err)
-		return nil, err
+		return "", err
 	}
 
-	return buf.Bytes(), nil
+	b64str := base64.StdEncoding.EncodeToString(buf.Bytes())
+
+	return b64str, nil
 
 }
