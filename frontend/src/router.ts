@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomePage from './components/Home.vue';
 import NasdaqEarningsCalendar from './components/NasdaqEarningsCalendar.vue';
 import Greeting from './components/Greeting.vue';
+import NSEBSEEarningsCalendar from './components/NSEBSEEarningsCalendar.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -13,6 +14,11 @@ const routes: RouteRecordRaw[] = [
     path: '/nasdaq-earnings',
     name: 'NASDAQ Earnings Calendar',
     component: NasdaqEarningsCalendar
+  },
+  {
+    path: '/nse-earnings',
+    name: 'NSE Earnings Calendar',
+    component: NSEBSEEarningsCalendar
   },
   {
     path: '/greeting',

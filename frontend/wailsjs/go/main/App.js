@@ -6,6 +6,10 @@ export function GetNASDAQEarningsCalendar(arg1) {
   return window['go']['main']['App']['GetNASDAQEarningsCalendar'](arg1);
 }
 
+export function GetNSEBSEEarningsCalendar(arg1) {
+  return window['go']['main']['App']['GetNSEBSEEarningsCalendar'](arg1);
+}
+
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }

@@ -3,6 +3,8 @@
 
 export function GetNASDAQEarningsCalendar(arg1:Array<string>):Promise<string>;
 
+export function GetNSEBSEEarningsCalendar(arg1:Array<string>):Promise<string>;
+
 export function Greet(arg1:string):Promise<string>;
 
 export function SaveFile():Promise<string>;

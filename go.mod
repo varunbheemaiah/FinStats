@@ -1,4 +1,4 @@
-module changeme
+module finstats
 
 go 1.21
 
