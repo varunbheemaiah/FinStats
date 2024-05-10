@@ -86,7 +86,7 @@
       data.isSubmitButtonLoading = false
       return await err("Error Generating File")
     }
-    const path = await SaveFile();
+    const path = await SaveFile("NSE_Earnings.xlsx");
     if(!path) {
       data.isSubmitButtonLoading = false
       return

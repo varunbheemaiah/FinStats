@@ -112,7 +112,7 @@ func (a *App) GetNSEBSEEarningsCalendar(dates []string) (string, error) {
 		}
 
 		f.MergeCell(date, "A1", "I2")
-		f.SetCellValue(date, "A1", "NASDAQ Earnings Calendar for "+date)
+		f.SetCellValue(date, "A1", "NSE/BSE Earnings Calendar for "+date)
 
 		if err := f.SetColWidth(date, "A", "A", 14); err != nil {
 			continue
@@ -320,10 +320,6 @@ func (a *App) GetNSEBSEEarningsCalendar(dates []string) (string, error) {
 	}
 
 	f.SetActiveSheet(0)
-	if err := f.SaveAs("earnings.xlsx"); err != nil {
-		fmt.Println("Unable to save file:", err)
-		return "", err
-	}
 
 	buf, err := f.WriteToBuffer()
 	if err != nil {

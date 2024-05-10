@@ -14,8 +14,8 @@ export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
 
-export function SaveFile() {
-  return window['go']['main']['App']['SaveFile']();
+export function SaveFile(arg1) {
+  return window['go']['main']['App']['SaveFile'](arg1);
 }
 
 export function ShowError(arg1, arg2) {

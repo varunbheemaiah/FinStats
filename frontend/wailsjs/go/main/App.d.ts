@@ -7,7 +7,7 @@ export function GetNSEBSEEarningsCalendar(arg1:Array<string>):Promise<string>;
 
 export function Greet(arg1:string):Promise<string>;
 
-export function SaveFile():Promise<string>;
+export function SaveFile(arg1:string):Promise<string>;
 
 export function ShowError(arg1:string,arg2:string):Promise<void>;
 

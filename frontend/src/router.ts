@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/nse-earnings',
-    name: 'NSE Earnings Calendar',
+    name: 'NSE/BSE Earnings Calendar',
     component: NSEBSEEarningsCalendar
   },
   {

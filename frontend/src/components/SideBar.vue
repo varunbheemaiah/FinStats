@@ -23,7 +23,7 @@
                 <v-list-item link title="NASDAQ Earnings Calendar"></v-list-item>
             </router-link>
             <router-link to="/nse-earnings">
-                <v-list-item link title="NSE Earnings Calendar"></v-list-item>
+                <v-list-item link title="NSE/BSE Earnings Calendar"></v-list-item>
             </router-link>
         </v-list>
     </v-navigation-drawer>

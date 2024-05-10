@@ -33,10 +33,10 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-func (a *App) SaveFile() string {
+func (a *App) SaveFile(defaultName string) string {
 	selection, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
 		Title:           "Select File",
-		DefaultFilename: "Earnings Calendar.xlsx",
+		DefaultFilename: defaultName,
 		Filters: []runtime.FileFilter{
 			{DisplayName: "Excel '97-2004 Workbooks (*.xls)", Pattern: "*.xls"},
 			{DisplayName: "Excel Workbooks (*.xlsx)", Pattern: "*.xlsx"},
