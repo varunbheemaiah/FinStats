@@ -12,9 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         build: [
-          {name: FinStats, platform: windows/amd64, os: windows-latest},
           # {name: FinStats, platform: linux/amd64, os: ubuntu-latest},
-          # {name: FinStats, platform: darwin/universal, os: macos-latest}
+          # {name: FinStats, platform: darwin/universal, os: macos-latest},
+          {name: FinStats, platform: windows/amd64, os: windows-latest}
         ]
 
     runs-on: ${{ matrix.build.os }}
