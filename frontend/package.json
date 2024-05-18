@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "chart.js": "^4.4.3",
+    "apexcharts": "^3.49.1",
     "vue": "^3.2.37",
-    "vue-chartjs": "^5.3.1",
     "vue-router": "^4.2.5",
+    "vue3-apexcharts": "^1.5.2",
     "vuetify": "^3.5.4"
   },
   "devDependencies": {

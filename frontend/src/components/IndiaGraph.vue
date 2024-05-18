@@ -1,8 +1,17 @@
 <template>
     <main>
         <div class="file-input">
-            <v-file-input label="Upload CSV" prepend-icon="mdi-upload" accept=".csv" v-model="data.selectedFile"
-                ref="fileInput" chips @change="importCSV"></v-file-input>
+            <v-container>
+                <v-row>
+                    <v-file-input label="Upload CSV" prepend-icon="mdi-upload" accept=".csv" ref="fileInput" chips
+                        @change="importCSV"></v-file-input>
+                    <v-btn size="x-large" @click="showChart" class="mx-2">Generate Chart</v-btn>
+                </v-row>
+            </v-container>
+        </div>
+        <div class="chart" v-if="data.showChart">
+            <apexchart type="line" :options="data.chartConfig.options" :series="data.chartConfig.series"></apexchart>
+            <!-- {{ data.print }} -->
         </div>
     </main>
 </template>
@@ -12,8 +21,10 @@ import { reactive, ref } from 'vue'
 import { LogDebug } from '../../wailsjs/runtime'
 
 const data = reactive({
-    selectedFile: null as any,
-    csv: "" as String | ArrayBuffer | null
+    csv: "" as String | ArrayBuffer | null,
+    showChart: false as boolean,
+    print: "" as any,
+    chartConfig: {} as any
 })
 const fileInput = ref<HTMLInputElement | null>(null)
 const files = ref()
@@ -32,6 +43,100 @@ function importCSV() {
     reader.onload = () => {
         data.csv = reader.result
     }
+
+}
+
+function cleanCSV(csv: string): string {
+    // Regular expression to find commas inside quotes
+    const regex = /"([^"]*)"/g;
+
+    // Replace commas inside quotes with an empty string
+    let result = csv.replace(regex, (match) => {
+        return match.replace(/,/g, '');
+    });
+
+    result = result.replace(/['"]+/g, '')
+
+    return result;
+}
+
+function csvToJSON(csv: string): Record<string, string>[] {
+    const lines = csv.split("\n");
+    if (lines.length === 0) {
+        return [];
+    }
+    const result: Record<string, string>[] = [];
+    const headers = lines[0].split(",").map(header => header.trim());
+    for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) {
+            continue;
+        }
+        const words = line.split(",");
+        const obj: Record<string, string> = {};
+        for (let j = 0; j < headers.length; j++) {
+            obj[headers[j]] = words[j] || '';
+        }
+        result.push(obj);
+    }
+
+    return result;
+}
+
+function convertStringToDate(dateString: string): Date {
+    const months: string[] = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    // Split the date string into components
+    const [day, month, year] = dateString.split('-');
+
+    // Convert the month string to a month index
+    const monthIndex: number = months.indexOf(month);
+
+    if (monthIndex === -1) {
+        throw new Error("Invalid month in date string");
+    }
+
+    // Create and return the Date object
+    return new Date(parseInt(year, 10), monthIndex, parseInt(day, 10));
+}
+
+function showChart() {
+
+    if (!data.csv) return
+    let cleanedCsv = cleanCSV(data.csv as string)
+    let chartData = csvToJSON(cleanedCsv)
+
+    let labels = chartData.map(x => x.Date)
+    let series = [
+        {
+            name: "Volume",
+            type: "column",
+            data: chartData.map(x => parseInt(x.VOLUME))
+        },
+        {
+            name: "Close",
+            type: "line",
+            data: chartData.map(x => parseFloat(x.close))
+        }
+    ]
+
+    data.chartConfig = {
+        options: {
+            chart: {
+                id: 'vuechart-example'
+            },
+            xaxis: {
+                categories: labels
+            }
+        },
+        series: series
+    }
+
+    data.print = series
+    data.showChart = true
 
 }
 
