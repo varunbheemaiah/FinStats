@@ -3,6 +3,7 @@ import HomePage from './components/Home.vue';
 import NasdaqEarningsCalendar from './components/NasdaqEarningsCalendar.vue';
 import Greeting from './components/Greeting.vue';
 import NSEBSEEarningsCalendar from './components/NSEBSEEarningsCalendar.vue';
+import IndiaGraph from './components/IndiaGraph.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -19,6 +20,11 @@ const routes: RouteRecordRaw[] = [
     path: '/nse-earnings',
     name: 'NSE/BSE Earnings Calendar',
     component: NSEBSEEarningsCalendar
+  },
+  {
+    path: '/india-graph',
+    name: 'India Graph',
+    component: IndiaGraph
   },
   {
     path: '/greeting',

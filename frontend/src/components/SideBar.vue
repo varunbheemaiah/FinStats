@@ -25,6 +25,9 @@
             <router-link to="/nse-earnings">
                 <v-list-item link title="NSE/BSE Earnings Calendar"></v-list-item>
             </router-link>
+            <router-link to="/india-graph">
+                <v-list-item link title="India Graph"></v-list-item>
+            </router-link>
         </v-list>
     </v-navigation-drawer>
 </template>
