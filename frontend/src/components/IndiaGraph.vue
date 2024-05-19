@@ -10,7 +10,8 @@
             </v-container>
         </div>
         <div class="chart" v-if="data.showChart">
-            <apexchart type="line" :options="data.chartConfig.options" :series="data.chartConfig.series"></apexchart>
+            <apexchart type="line" :options="data.chartConfig.options" :series="data.chartConfig.series" height="810">
+            </apexchart>
             <!-- {{ data.print }} -->
         </div>
     </main>
@@ -108,31 +109,81 @@ function showChart() {
     if (!data.csv) return
     let cleanedCsv = cleanCSV(data.csv as string)
     let chartData = csvToJSON(cleanedCsv)
+    chartData.reverse()
 
     let labels = chartData.map(x => x.Date)
     let series = [
+        {
+            name: "Open",
+            type: "line",
+            data: chartData.map(x => parseFloat(x.OPEN))
+        },
+        {
+            name: "Close",
+            type: "line",
+            data: chartData.map(x => parseFloat(x.close))
+        },
+        {
+            name: "High",
+            type: "line",
+            data: chartData.map(x => parseFloat(x.HIGH))
+        },
+        {
+            name: "Low",
+            type: "line",
+            data: chartData.map(x => parseFloat(x.LOW))
+        },
         {
             name: "Volume",
             type: "column",
             data: chartData.map(x => parseInt(x.VOLUME))
         },
         {
-            name: "Close",
-            type: "line",
-            data: chartData.map(x => parseFloat(x.close))
-        }
+            name: "No. of Trades",
+            type: "column",
+            data: chartData.map(x => parseInt(x['No of trades']))
+        },
     ]
 
     data.chartConfig = {
         options: {
             chart: {
-                id: 'vuechart-example'
+                id: 'price-chart'
             },
             xaxis: {
-                categories: labels
-            }
+                categories: labels,
+                tickAmount: 12,
+            },
+            colors: ['#008FFB', '#FEB019', '#00E396', '#FF4560', '#458B74', '#775DD0'],
+            yaxis: [
+                {
+                    showAlways: true,
+                    title: {
+                        text: 'Price'
+                    }
+                },
+                {
+                    show: false,
+                    showAlways: false,
+                    opposite: true,
+                    title: {
+                        text: 'Volume'
+                    }
+                },
+            ],
+            stroke: {
+                show: true,
+                curve: 'straight',
+                lineCap: 'butt',
+                colors: undefined,
+                width: 1,
+                dashArray: 0,
+            },
+            theme: {
+                mode: 'dark'
+            },
         },
-        series: series
+        series: series,
     }
 
     data.print = series
