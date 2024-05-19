@@ -144,6 +144,12 @@ function showChart() {
         },
     ]
 
+    let max = -Infinity
+    for (let i = 0; i < 4; i++) {
+        const dataMax = Math.max(...series[i].data)
+        if (dataMax > max) max = dataMax
+    }
+
     data.chartConfig = {
         options: {
             chart: {
@@ -156,17 +162,53 @@ function showChart() {
             colors: ['#008FFB', '#FEB019', '#00E396', '#FF4560', '#458B74', '#775DD0'],
             yaxis: [
                 {
+                    min: 0,
+                    max: max,
+                    showAlways: true,
+                    title: {
+                        text: 'Value'
+                    }
+                },
+                {
+                    min: 0,
+                    max: max,
+                    show: false,
                     showAlways: true,
                     title: {
                         text: 'Price'
                     }
                 },
                 {
+                    min: 0,
+                    max: max,
                     show: false,
-                    showAlways: false,
+                    showAlways: true,
+                    title: {
+                        text: 'Price'
+                    }
+                },
+                {
+                    min: 0,
+                    max: max,
+                    show: false,
+                    showAlways: true,
+                    title: {
+                        text: 'Price'
+                    }
+                },
+                {
+                    show: true,
+                    showAlways: true,
                     opposite: true,
                     title: {
                         text: 'Volume'
+                    }
+                },
+                {
+                    show: false,
+                    showAlways: true,
+                    title: {
+                        text: 'Price'
                     }
                 },
             ],
