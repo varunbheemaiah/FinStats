@@ -19,7 +19,6 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { LogDebug } from '../../wailsjs/runtime'
 
 const data = reactive({
     csv: "" as String | ArrayBuffer | null,
