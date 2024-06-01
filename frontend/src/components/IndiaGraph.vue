@@ -103,6 +103,23 @@ function convertStringToDate(dateString: string): Date {
     return new Date(parseInt(year, 10), monthIndex, parseInt(day, 10));
 }
 
+function numberWithCommas(x: number) {
+
+    // INDIAN
+    const [integerPart, fractionalPart] = x.toString().split('.');
+    let str = integerPart;
+    let lastThree = str.slice(-3);
+    let otherNumbers = str.slice(0, -3);
+    if (otherNumbers !== '') {
+        lastThree = ',' + lastThree;
+    }
+    const formattedInteger = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return fractionalPart ? formattedInteger + '.' + fractionalPart : formattedInteger;
+
+    // AMERICAN
+    // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function showChart() {
 
     if (!data.csv) return
@@ -162,38 +179,59 @@ function showChart() {
             colors: ['#008FFB', '#FEB019', '#00E396', '#FF4560', '#458B74', '#775DD0'],
             yaxis: [
                 {
+                    show: true,
+                    showAlways: true,
                     min: 0,
                     max: max,
-                    showAlways: true,
                     title: {
                         text: 'Value'
+                    },
+                    labels: {
+                        formatter: function (value: number) {
+                            return numberWithCommas(value);
+                        }
                     }
                 },
                 {
-                    min: 0,
-                    max: max,
                     show: false,
                     showAlways: true,
+                    min: 0,
+                    max: max,
                     title: {
-                        text: 'Price'
+                        text: 'Value'
+                    },
+                    labels: {
+                        formatter: function (value: number) {
+                            return numberWithCommas(value);
+                        }
                     }
                 },
                 {
-                    min: 0,
-                    max: max,
                     show: false,
                     showAlways: true,
+                    min: 0,
+                    max: max,
                     title: {
-                        text: 'Price'
+                        text: 'Value'
+                    },
+                    labels: {
+                        formatter: function (value: number) {
+                            return numberWithCommas(value);
+                        }
                     }
                 },
                 {
-                    min: 0,
-                    max: max,
                     show: false,
                     showAlways: true,
+                    min: 0,
+                    max: max,
                     title: {
-                        text: 'Price'
+                        text: 'Value'
+                    },
+                    labels: {
+                        formatter: function (value: number) {
+                            return numberWithCommas(value);
+                        }
                     }
                 },
                 {
@@ -202,13 +240,23 @@ function showChart() {
                     opposite: true,
                     title: {
                         text: 'Volume'
+                    },
+                    labels: {
+                        formatter: function (value: number) {
+                            return numberWithCommas(value);
+                        }
                     }
                 },
                 {
                     show: false,
                     showAlways: true,
                     title: {
-                        text: 'Price'
+                        text: 'Value'
+                    },
+                    labels: {
+                        formatter: function (value: number) {
+                            return numberWithCommas(value);
+                        }
                     }
                 },
             ],
