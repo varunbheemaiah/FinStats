@@ -12,18 +12,18 @@
         <div class="chart" v-if="data.showChart">
             <apexchart type="line" :options="data.chartConfig.options" :series="data.chartConfig.series" height="810">
             </apexchart>
-            <!-- {{ data.print }} -->
         </div>
     </main>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { useTheme } from 'vuetify';
 
+const themer = useTheme()
 const data = reactive({
     csv: "" as String | ArrayBuffer | null,
     showChart: false as boolean,
-    print: "" as any,
     chartConfig: {} as any
 })
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -269,13 +269,12 @@ function showChart() {
                 dashArray: 0,
             },
             theme: {
-                mode: 'dark'
+                mode: themer.global.name.value
             },
         },
         series: series,
     }
 
-    data.print = series
     data.showChart = true
 
 }

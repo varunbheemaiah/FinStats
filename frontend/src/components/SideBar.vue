@@ -40,14 +40,14 @@
 
         <v-dialog v-model="showSettings" max-width="500px">
             <v-card>
-                <v-card-title class="headline mb-5" style="border-bottom: 1px solid white;">Settings</v-card-title>
+                <v-card-title class="headline mb-5 dialog-header-divider">Settings</v-card-title>
                 <v-card-text>
                     <v-row>
-                        <v-col cols="12" md="6" class="pt-16">
+                        <v-col cols="12" md="6" class="pt-16 mt-1">
                             <p>Theme</p>
                         </v-col>
                         <v-col cols="12" md="6" class="flex-center">
-                            <v-radio-group v-model="theme" inline ripple>
+                            <v-radio-group v-model="chosenTheme" inline ripple @update:model-value="themeChanged">
                                 <v-radio label="Light" value="light">
                                     <template #label>
                                         &nbsp;Light
@@ -62,11 +62,11 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col cols="12" md="6" class="pt-16">
+                        <v-col cols="12" md="6" class="pt-16 mt-1">
                             <p>Number Format</p>
                         </v-col>
                         <v-col cols="12" md="6" class="flex-center">
-                            <v-radio-group v-model="numberFormat" inline ripple>
+                            <v-radio-group v-model="numberFormat" inline ripple @update:model-value="numberFormatChanged">
                                 <v-radio label="Indian" value="indian">
                                     <template #label>
                                         &nbsp;Indian
@@ -93,10 +93,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useTheme } from 'vuetify';
 
 const showSettings = ref(false);
-const theme = ref("dark");
+const themer = useTheme();
+const chosenTheme = ref("dark");
 const numberFormat = ref("indian")
+
+function numberFormatChanged(event: string|null): void {
+    console.log(event);
+}
+
+function themeChanged(event: string|null): void {
+    themer.global.name.value = chosenTheme.value;
+}
 
 </script>
 
@@ -108,15 +118,6 @@ const numberFormat = ref("indian")
 
 .side-menu .v-list-item {
     text-align: left;
-}
-
-a,
-p,
-.v-card-title,
-.v-icon {
-    text-decoration: none;
-    color: white;
-    opacity: 0.7;
 }
 
 .flex-center {
@@ -137,5 +138,9 @@ p,
 
 .settings-item .v-icon {
     margin-right: 10px;
+}
+
+.dialog-header-divider {
+    border-bottom: 1px solid white;
 }
 </style>
