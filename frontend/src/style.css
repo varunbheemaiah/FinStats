@@ -86,6 +86,11 @@ body {
     opacity: 1;
 }
 
+.v-theme--light .v-app-bar {
+    box-shadow: none; 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
 .v-theme--dark a,
 .v-theme--dark p,
 .v-theme--dark .v-card-title,
