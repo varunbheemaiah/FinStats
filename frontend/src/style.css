@@ -5,8 +5,8 @@ html {
 body {
     margin: 0;
     font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
 }
 
 @font-face {
@@ -14,10 +14,94 @@ body {
     font-style: normal;
     font-weight: 400;
     src: local(""),
-    url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
+        url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
 
 #app {
     height: 100vh;
     text-align: center;
+}
+
+.home-full-height {
+    height: 100vh;
+}
+
+.home-title {
+    font-size: 4rem;
+}
+
+.home-subtitle {
+    font-size: 2rem;
+}
+
+.no-hover:hover,
+.no-hover:focus {
+    background-color: transparent !important;
+}
+
+.side-menu .v-list-item {
+    text-align: left;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.square-avatar img {
+    width: 36px;
+    /* border-radius: 0; */
+}
+
+.settings-item {
+    margin-top: auto;
+    cursor: pointer;
+}
+
+.settings-item .v-icon {
+    margin-right: 10px;
+}
+
+.v-theme--dark .dialog-header-divider {
+    border-bottom: 1px solid white;
+}
+
+.v-theme--light .dialog-header-divider {
+    border-bottom: 1px solid black;
+}
+
+.v-theme--light a,
+.v-theme--light p,
+.v-theme--light .v-card-title,
+.v-theme--light .v-icon,
+.v-theme--light .v-text-field,
+.v-theme--light .v-btn,
+.v-theme--light .v-radio,
+.v-theme--light .v-label,
+.v-theme--light .v-toolbar-title,
+.v-theme--light .app-default-font-style {
+    text-decoration: none !important;
+    color: black !important;
+    opacity: 1;
+}
+
+.v-theme--light .v-app-bar {
+    box-shadow: none; 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.v-theme--dark a,
+.v-theme--dark p,
+.v-theme--dark .v-card-title,
+.v-theme--dark .v-icon,
+.v-theme--dark .v-text-field,
+.v-theme--dark .v-btn,
+.v-theme--dark .v-radio,
+.v-theme--dark .v-label,
+.v-theme--dark .v-toolbar-title,
+.v-theme--dark .app-default-font-style {
+    text-decoration: none !important;
+    color: white !important;
+    opacity: 0.8 !important;
 }

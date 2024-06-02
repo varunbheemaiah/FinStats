@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar app>
+    <v-app-bar app elevation="0">
         <v-toolbar-title>{{ pageTitle }}</v-toolbar-title>
     </v-app-bar>
 </template>
