@@ -109,38 +109,3 @@ function themeChanged(event: string|null): void {
 }
 
 </script>
-
-<style scoped>
-.no-hover:hover,
-.no-hover:focus {
-    background-color: transparent !important;
-}
-
-.side-menu .v-list-item {
-    text-align: left;
-}
-
-.flex-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.square-avatar img {
-    width: 36px;
-    /* border-radius: 0; */
-}
-
-.settings-item {
-    margin-top: auto;
-    cursor: pointer;
-}
-
-.settings-item .v-icon {
-    margin-right: 10px;
-}
-
-.dialog-header-divider {
-    border-bottom: 1px solid white;
-}
-</style>

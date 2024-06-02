@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useTheme } from 'vuetify';
 
 const themer = useTheme()
@@ -119,6 +119,12 @@ function numberWithCommas(x: number) {
     // AMERICAN
     // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+watch(themer.global.name, (newValue) => {
+    if(data.showChart) {
+        showChart()
+    }
+})
 
 function showChart() {
 

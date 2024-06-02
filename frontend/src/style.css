@@ -34,6 +34,43 @@ body {
     font-size: 2rem;
 }
 
+.no-hover:hover,
+.no-hover:focus {
+    background-color: transparent !important;
+}
+
+.side-menu .v-list-item {
+    text-align: left;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.square-avatar img {
+    width: 36px;
+    /* border-radius: 0; */
+}
+
+.settings-item {
+    margin-top: auto;
+    cursor: pointer;
+}
+
+.settings-item .v-icon {
+    margin-right: 10px;
+}
+
+.v-theme--dark .dialog-header-divider {
+    border-bottom: 1px solid white;
+}
+
+.v-theme--light .dialog-header-divider {
+    border-bottom: 1px solid black;
+}
+
 .v-theme--light a,
 .v-theme--light p,
 .v-theme--light .v-card-title,
