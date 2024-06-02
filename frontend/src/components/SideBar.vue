@@ -97,7 +97,7 @@ import { useTheme } from 'vuetify';
 
 const showSettings = ref(false);
 const themer = useTheme();
-const chosenTheme = ref("dark");
+const chosenTheme = ref(localStorage.getItem("theme") || "dark");
 const numberFormat = ref("indian")
 
 function numberFormatChanged(event: string|null): void {
@@ -106,6 +106,7 @@ function numberFormatChanged(event: string|null): void {
 
 function themeChanged(event: string|null): void {
     themer.global.name.value = chosenTheme.value;
+    localStorage.setItem("theme", chosenTheme.value);
 }
 
 </script>

@@ -12,11 +12,13 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import VueApexCharts from "vue3-apexcharts";
 
+let savedTheme = localStorage.getItem('theme') || 'dark'
+
 const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme: savedTheme,
   }
 })
 
